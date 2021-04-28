@@ -13,4 +13,4 @@ This is a command line interface tool to help employers keep track of their empl
 
 ***DEMO***
 
-
+demo.mp4
