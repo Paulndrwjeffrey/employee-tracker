@@ -35,18 +35,21 @@ values
     ('Legal'), 
     ('Research & Development'), 
     ('Security'),
-    ('Management');
+    ('Management'),
+    ('Sorcery');
 
 insert into emp_role (title, salary, department_id)
 values
-	('Cold-Caller', 50000, 1),
-    ('Whip-Hand', 80000, 2),
+	('Cold Caller', 50000, 1),
+    ('Overlord', 80000, 2),
     ('Litigator', 125000, 3),
     ('Mad Scientist', 125000, 4),
-    ('Night-Watch', 35000, 5),
-    ('Email-Blaster', 50000, 1),
-    ('Manager', 200000, 6),
-    ('Supreme-Leader', 300000, 6);
+    ('Night Watch', 35000, 5),
+    ('Email Responder', 50000, 1),
+    ('Dirtbag', 200000, 6),
+    ('Supreme Leader', 300000, 6),
+    ('Black Magic Consultang', 250000, 7),
+    ('Ponzi Schemer', 400000, 4);
 
 insert into employee (first_name, last_name, role_id)
 values
@@ -57,11 +60,14 @@ values
     ('Jungi', 'Ito', 1),
     ('Charles', 'Schulz', 7),
     ('Raymond', 'Chandler', 6),
-    ('Lester', 'Young', 8);
+    ('Lester', 'Young', 8),
+    ('Patricia', 'Highsmith', 8),
+    ('Joy', 'Williams', 2),
+    ('Charlie', 'Parker', 5);
     
 update employee 
 set manager_id = 4
-where id < 10;
+where id < 13;
 
 update employee 
 set manager_id = 8
@@ -70,5 +76,3 @@ where id = 4;
 update employee 
 set manager_id = null
 where id = 8;
-
-SELECT emp_role.id, title, employee.id, last_name FROM emp_role INNER JOIN employee ON emp_role.id = employee.id

@@ -170,36 +170,39 @@ const addRole = () => {
 });
 };
 
-// const changeRole = () => {
-//     connection.query('SELECT first_name AS "First", last_name AS "Last", title AS "Role" FROM employee LEFT JOIN emp_role ON role_id = emp_role.id', (error, response) => {
-//         if (error) throw error
-//         console.table(response)
-//         inquirer.prompt([
-//             {
-//                 name: 'which',
-//                 type: 'rawlist',
-//                 message: 'Who\'s role will change?',
-//                 loop: false,
-//                 choices: () => {
-//                     let choices = response.map(choice => choice.Last);
-//                     return choices;
-//                 }
-//             },
-//             {
-//                 name: 'role',
-//                 type: 'rawlist',
-//                 message: 'New role?',
-//                 loop: false,
-//                 choices: () => {
-//                     let choices = response.map(choice => choice.Role);
-//                     return choices;
-//                 }
-//             }
-//         ]).then((answers) => {
-//             console.log(answers)
-//         }
-//     });
-// }   
+const changeRole = () => {
+    connection.query('SELECT first_name AS "First", last_name AS "Last", title AS "Role" FROM employee LEFT JOIN emp_role ON role_id = emp_role.id', (error, response) => {
+        if (error) throw error
+        console.table(response)
+        inquirer.prompt([
+            {
+                name: 'which',
+                type: 'rawlist',
+                message: 'Who\'s role will change?',
+                loop: false,
+                choices: () => {
+                    let choices = response.map(choice => choice.Last);
+                    return choices;
+                }
+            },
+            {
+                name: 'role',
+                type: 'rawlist',
+                message: 'New role?',
+                loop: false,
+                choices: () => {
+                    let choices = response.map(choice => choice.Role);
+                    return choices;
+                }
+            }]).then((answers) => {
+            connection.query('UPDATE employee SET role_id = (SELECT emp_role.id FROM emp_role WHERE title = ?) WHERE last_name = ?', [answers.role, answers.which], (error, response) => {
+                if (error) throw error;
+                console.log(`Changed role`);
+                start();
+            })
+        })
+    })
+}   
 
 
 
@@ -207,8 +210,3 @@ connection.connect((error) => {
     if (error) throw error;
     start();
 });
-
-
-// SCRTCHPD
-
-// , (SELECT employee.id FROM employee WHERE last_name = ?
